@@ -21,6 +21,9 @@ ul {
 	padding-left: 2em;
 	margin-left: 0;
 }
+.striked {
+	text-decoration: line-through;
+}
 /** Header */
 #header {
 	background-color: #204ca0;

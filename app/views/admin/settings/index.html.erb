@@ -1,34 +1,55 @@
-<% content_for :header do -%>
-	Application Settings
-<% end -%>
+<%= render :partial => 'settings_content' %>
+<p>These are site-wide settings. They will be used through-out your application.</p>
 
-<% content_for :sidebar do -%>
-	<p>
-		These are site-wide settings. They will be used through-out your application.
-	</p>
-	<p>
-		To add new settings, simple create a migration (see migration #006 for an example), and add  your 
-		settings code here to allow the administrator to edit it.
-	</p>
-<% end -%>
-
-<% form_tag :action => 'update' do %>
-
-<h3>General</h3>
-	
-	
-	
-<%= settings_field(Setting.load(:site_name)) %>
-<%= settings_field(Setting.load(:company_name)) %>
-<%= settings_field(Setting.load(:site_url)) %>
-
-<h3>Support</h3>
-	
-<%= settings_field(Setting.load(:support_name)) %>
-<%= settings_field(Setting.load(:support_email)) %>
-
-<div id="submitbutton">
-	<p><%= submit_tag 'Save Settings' %></p>
+<div>
+	<h3>Default Settings</h3>
+	<p class="note">The following default settings are hard coded in <em>config/config.yml</em>. Override them by creating a new custom setting with a matching identifier.</p>
+	<table>
+		<tr>
+			<th>Identifier</th>
+			<th>Value</th>
+			<th></th>
+		</tr>
+		<% @yml_settings.each do |key,value| %>
+		<% overridden = true if @db_settings_identifiers.include?(key.to_s) %>
+		<tr>
+			<td class="<%= "striked" if overridden %>"><%= key %></td>
+			<td class="<%= "striked" if overridden %>"><%= value %></td>
+			<td>
+				<% if overridden %>
+				<% setting = Setting.find_by_identifier(key.to_s) %>
+				Overridden by <%= link_to setting.label, admin_setting_path(setting) %>
+				<% else %>
+				<%= link_to "Override", new_admin_setting_path(:identifier => key.to_s, :value => value.to_s) %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</table>
 </div>
 
-<% end %>
+
+<div>
+	<h3>Custom Settings</h3>
+	<% unless @settings.blank? %>
+	<table>
+		<tr>
+			<th>Identifier</th>
+			<th>Value</th>
+			<th></th>
+		</tr>
+		<% for setting in @settings %>
+		<tr>
+			<td><%= link_to "#{setting.identifier}", admin_setting_path(setting) %></td>
+			<td><%= setting.value %></td>
+			<td><%= link_to "Edit", edit_admin_setting_path(setting) %> | <%= link_to "Delete", admin_setting_path(setting), :confirm => "Are you sure?", :method => :delete 
+				 %></td>
+		</tr>
+		<% end %>
+	</table>
+	<% else %>
+	<p>You have no custom settings.</p>
+	<% end %>
+</div>
+
+<p><%= link_to "New Setting", new_admin_setting_path %></p>

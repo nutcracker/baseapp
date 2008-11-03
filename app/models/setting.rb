@@ -10,7 +10,12 @@ class Setting < ActiveRecord::Base
   def self.load(identifier)
     identifier = identifier.to_s if identifier.is_a?(Symbol)
     
-    find_by_identifier(identifier)
+    setting = find_by_identifier(identifier)
+    if setting.nil?
+      Setting.new(:identifier => identifier, :value => configatron.send(identifier.to_sym))
+    else
+      setting
+    end
   end
   
   # Return the value for a setting

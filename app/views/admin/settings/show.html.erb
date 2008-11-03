@@ -1,0 +1,25 @@
+<%= render :partial => 'settings_content' %>
+
+<p>
+  <b>Label:</b>
+  <%=h @setting.label %>
+</p>
+
+<p>
+  <b>Identifier:</b>
+  <%=h @setting.identifier %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%=h @setting.value %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @setting.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_setting_path(@setting) %> |
+<%= link_to 'Back', admin_settings_path %>

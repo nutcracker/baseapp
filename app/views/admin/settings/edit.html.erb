@@ -1,0 +1,15 @@
+<%= render :partial => 'settings_content' %>
+
+<h1>Editing Setting</h1>
+
+<% form_for(@setting, :url => admin_setting_path) do |f| %>
+	<%= f.error_messages %>
+
+	<%= render :partial => 'form', :locals => {:f => f} %>
+	<p>
+		<%= f.submit "Update" %>
+	</p>
+<% end %>
+
+<%= link_to 'Show', admin_setting_path(@setting) %> |
+<%= link_to 'Back', admin_settings_path %>
