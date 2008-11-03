@@ -23,6 +23,6 @@ class Setting < ActiveRecord::Base
       setting = nil
     end
     
-    setting.nil? ? "" : setting.value
+    setting.nil? ? configatron.send(identifier.to_sym) : setting.value
   end
 end
