@@ -1,11 +1,12 @@
-<% @user.password = @user.password_confirmation = nil %>
+<% @user.password = nil %>
+<% @user.password_confirmation = nil %>
 
 <% content_for :header do -%>
-Create a new <%= configatron.site_name %> account
+Create a new <%= setting_for(:site_name) %> account
 <% end -%>
 
 <p>
-	To access <%= configatron.site_name %> you may sign up with your OpenID. If you don't have an OpenID yet, we recommend <a href="http://www.myopenid.com">MyOpenID</a>.
+	To access <%= setting_for(:site_name) %> you may sign up with your OpenID. If you don't have an OpenID yet, we recommend <a href="http://www.myopenid.com">MyOpenID</a>.
 </p>
 
 

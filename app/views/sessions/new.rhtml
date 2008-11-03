@@ -1,5 +1,5 @@
 <% content_for :header do -%>
-<%= configatron.site_name %> Login
+<%= setting_for(:site_name) %> Login
 <% end -%>
 
 <% form_tag session_path do -%>
@@ -12,7 +12,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Or Your <%= configatron.site_name %> Account</legend>
+		<legend>Or Your <%= setting_for(:site_name) %> Account</legend>
 		
 		<p><label for="login">Login</label><br/>
 		<%= text_field_tag 'login' %></p>

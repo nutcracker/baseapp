@@ -13,7 +13,7 @@
 
 	<% unless @profile.user.not_using_openid? %>
 	<p>
-		This is your <%= configatron.site_name %> profile. It's not related to your OpenID Identity.
+		This is your <%= setting_for(:site_name) %> profile. It's not related to your OpenID Identity.
 	</p>
 	<% end %>
 	
