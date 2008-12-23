@@ -1,5 +1,4 @@
-<% @user.password = nil %>
-<% @user.password_confirmation = nil %>
+<% (@user.password = @user.password_confirmation = nil) rescue nil %>
 
 <% content_for :header do -%>
 Create a new <%= setting_for(:site_name) %> account
