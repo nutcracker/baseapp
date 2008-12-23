@@ -34,12 +34,13 @@ class Admin::SettingsController < ApplicationController
   # GET /admin/settings/new
   # GET /admin/settings/new.xml
   def new
-    @setting = Setting.new(
-      :label => params[:identifier].humanize,
-      :identifier => params[:identifier],
-      :value => params[:value]
-    )
-
+    @setting = Setting.new()
+    if params[:identifier]
+      @setting.label = params[:identifier].humanize
+      @setting.identifier = params[:identifier]
+    end
+    @setting.value = params[:value] if params[:value]
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @setting }
